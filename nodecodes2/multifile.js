@@ -26,12 +26,12 @@ function readContent(s){
 
 }
 function printContent(data){
-  var s1=data.toString();
-    var s2=s1.split("\n");
-    s2.forEach(function(line){
+    var fileContent=data.toString();
+    var contentlines=fileContent.split("\n");
+    contentlines.forEach(function(line){
       console.log(line);
     })
-    //console.log('\n');
+    
     console.log('===================')
     
 }
