@@ -1,56 +1,42 @@
 var Promise = require('es6-promise').Promise;
+
 function readContent(s){
 
   var fs = require("fs"), f1 = "file1.txt", f2 = "file2.txt", f3 = "file3.txt";
-  var p1 = new Promise(function(resolve,reject){
-    fs.readFile(f1, function (err, data) {
-    if (err) 
-      reject(err);
-    else
-      resolve(printContent(data));
-  });
-  });
-  var p2 = new Promise(function(resolve,reject){
-    fs.readFile(f2, function (err, data) {
-    if (err) 
-      reject(err);
-    else
-      resolve(printContent(data));
-  });
-  });
-  var p3 = new Promise(function(resolve,reject){
-    fs.readFile(f3, function (err, data) {
-    if (err) 
-      reject(err);
-    else
-      resolve(printContent(data));
-  });
+  var file1 = new Promise(function(resolve,reject){
+    resolve(checkFile(f1));
+    });
+  var file2 = new Promise(function(resolve,reject){
+   resolve(checkFile(f2));
+    });
+  var file3 = new Promise(function(resolve,reject){
+    resolve(checkFile(f3));
   });
   
     
-p1.then((val) => console.log(val))
-  .then(p2.then((val) => console.log(val)))
-  .then(p3.then((val) => console.log(val)))
+file1.then((val) => console.log(val))
+  .then(file2.then((val) => console.log(val)))
+  .then(file3.then((val) => console.log(val)))
   .catch((err) => console.log(err));
-
-/*p2.then((val) => console.log(val))
-  .catch((err) => console.log(err));
-
-p3.then((val) => console.log(val))
-  .catch((err) => console.log(err));*/
-
-
- 
-    
-
 }
+
+function checkFile(file)
+{
+  fs.readFile(file, function (err, data) {
+    if (err) 
+      return(err);
+    else
+      return(printContent(data));
+  });
+}
+
 function printContent(data){
   var fileContent = data.toString();
     var contentline = fileContent.split("\n");
     contentline.forEach(function(line){
       console.log(line);
     })
-    //console.log('\n');
+    
     console.log('===================')
     
 }
